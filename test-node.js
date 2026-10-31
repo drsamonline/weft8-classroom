@@ -94,6 +94,15 @@ ok(fs.existsSync("./TEACHER.md"), "a teacher's sheet ships with it");
   ok(readme.indexOf("you are here") > 0, "and marks this repository in it");
 }
 
+
+/* the copy counts what the data holds — so a new level cannot leave the page lying */
+{
+  const fsc = require("fs");
+  const land = fsc.readFileSync("./docs/index.html", "utf8");
+  ok(land.indexOf("nine exercises") >= 0, "the landing page states the right count: nine exercises");
+  ok(C.EXERCISES.length === 9, "and the data really has that many");
+}
+
 console.log("");
 console.log(pass + " passed, " + failures.length + " failed");
 if (failures.length) { failures.forEach(f => console.log("  - " + f)); process.exit(1); }
