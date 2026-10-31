@@ -2,20 +2,14 @@
 
 # Weft-8 Classroom
 
-<!-- shot:start -->
-
-![Screenshot](docs/shot.png)
-
-<!-- shot:end -->
-
 **Eight exercises that teach how a computer actually works — on a real one.**
 
-[![Live exercises](https://img.shields.io/badge/live-the%20exercises-e8d48b
-[![Test](https://img.shields.io/github/actions/workflow/status/drsamonline/weft8-classroom/test.yml
-[![Build + deploy](https://img.shields.io/github/actions/workflow/status/drsamonline/weft8-classroom/build-apps.yml
-[![Licence](https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-9fe0a8
-[![Built on the Loom](https://img.shields.io/badge/built%20on-the%20Loom%20(app--jacquard)-e8d48b
-[![For classrooms](https://img.shields.io/badge/classrooms-free%20to%20use-9fe0a8
+[![Live exercises](https://img.shields.io/badge/live-the%20exercises-e8d48b?style=flat-square&labelColor=1c2b24)](https://drsamonline.github.io/weft8-classroom/)
+[![Test](https://img.shields.io/github/actions/workflow/status/drsamonline/weft8-classroom/test.yml?branch=main&style=flat-square&label=tests&labelColor=1c2b24)](https://github.com/drsamonline/weft8-classroom/actions/workflows/test.yml)
+[![Build + deploy](https://img.shields.io/github/actions/workflow/status/drsamonline/weft8-classroom/build-apps.yml?branch=main&style=flat-square&label=build&labelColor=1c2b24)](https://github.com/drsamonline/weft8-classroom/actions/workflows/build-apps.yml)
+[![Licence](https://img.shields.io/badge/licence-PolyForm%20Noncommercial%201.0.0-9fe0a8?style=flat-square&labelColor=1c2b24)](LICENSE)
+[![Built on the Loom](https://img.shields.io/badge/built%20on-the%20Loom%20(app--jacquard)-e8d48b?style=flat-square&labelColor=1c2b24)](https://github.com/drsamonline/app-jacquard)
+[![For classrooms](https://img.shields.io/badge/classrooms-free%20to%20use-9fe0a8?style=flat-square&labelColor=1c2b24)](#for-teachers)
 
 [**Open the exercises →**](https://drsamonline.github.io/weft8-classroom/) · [Teacher's sheet](TEACHER.md)
 
