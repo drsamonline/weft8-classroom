@@ -23,7 +23,7 @@ eq(Object.keys(W.OPCODES).length, 27, "27 opcodes");
 eq(W.assemble("LDI 1\nHLT").all, [0x00, 0x01, 0x1A, 0x00], "two bytes per instruction, opcode first");
 
 console.log("the exercises — the answer works, the starter does not");
-eq(C.EXERCISES.length, 8, "eight exercises ship");
+eq(C.EXERCISES.length, 9, "nine exercises ship");
 C.EXERCISES.forEach(function (ex) {
   ok(ex.brief.length > 30, ex.id + ": has a brief worth reading");
   ok(ex.hint.length > 10, ex.id + ": has a hint");
@@ -78,6 +78,21 @@ const html = fs.readFileSync("./docs/play/index.html", "utf8");
 ok(html.indexOf('id="exercises"') > 0, "the page has the exercise list");
 ok(html.indexOf('id="check"') > 0, "the page has a Check button");
 ok(fs.existsSync("./TEACHER.md"), "a teacher's sheet ships with it");
+
+
+/* the family — every page links back to the Loom, and the Loom to every page */
+{
+  const fsm = require("fs");
+  const landing = fsm.readFileSync("./docs/index.html", "utf8");
+  ok(landing.indexOf('id="family"') > 0, "the landing page carries the family strip");
+  ok(landing.indexOf("you are here") > 0, "and marks this page as the one you are on");
+  ['app-jacquard', 'app-weft-puzzles', 'app-clip-loom', 'weft8-hardware', 'weft8-kit', 'weft8-compare'].forEach(function (slug) {
+    ok(landing.indexOf("https://drsamonline.github.io/" + slug + "/") > 0, "it links to " + slug);
+  });
+  const readme = fsm.readFileSync("./README.md", "utf8");
+  ok(readme.indexOf("The Weft-8 family") > 0, "the README carries the family table too");
+  ok(readme.indexOf("you are here") > 0, "and marks this repository in it");
+}
 
 console.log("");
 console.log(pass + " passed, " + failures.length + " failed");

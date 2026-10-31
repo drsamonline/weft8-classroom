@@ -209,6 +209,31 @@
         "        HLT"
       ].join("\n"),
       check: { out: [65, 66] }
+    },
+    {
+      id: "swap",
+      title: "9 · Swap two registers",
+      brief: "R1 holds 3 and R2 holds 8. Swap them, so R1 is 8 and R2 is 3 — without losing either.",
+      hint: "You cannot swap in two moves. Copy one value to a third register first, then shuffle.",
+      starter: [
+        "        LDI 3",
+        "        MOV R1, R0",
+        "        LDI 8",
+        "        MOV R2, R0",
+        "; swap R1 and R2 without losing either",
+        "        HLT"
+      ].join("\n"),
+      answer: [
+        "        LDI 3",
+        "        MOV R1, R0",
+        "        LDI 8",
+        "        MOV R2, R0",
+        "        MOV R3, R1           ; keep R1 in R3",
+        "        MOV R1, R2           ; R1 = old R2",
+        "        MOV R2, R3           ; R2 = old R1",
+        "        HLT"
+      ].join("\n"),
+      check: { reg: { 1: 8, 2: 3 } }
     }
   ];
 

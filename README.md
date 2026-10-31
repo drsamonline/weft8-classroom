@@ -2,13 +2,7 @@
 
 # Weft-8 Classroom
 
-<!-- shot:start -->
-
-![Screenshot](docs/shot.png)
-
-<!-- shot:end -->
-
-**Eight exercises that teach how a computer actually works — on a real one.**
+**Nine exercises that teach how a computer actually works — on a real one.**
 
 [![Live exercises](https://img.shields.io/badge/live-the%20exercises-e8d48b?style=flat-square&labelColor=1c2b24)](https://drsamonline.github.io/weft8-classroom/)
 [![Test](https://img.shields.io/github/actions/workflow/status/drsamonline/weft8-classroom/test.yml?branch=main&style=flat-square&label=tests&labelColor=1c2b24)](https://github.com/drsamonline/weft8-classroom/actions/workflows/test.yml)
@@ -30,7 +24,7 @@ twenty-seven instructions, and **no `if` statement**, so the student builds one.
 Every exercise starts **incomplete**. The machine runs, does something, and the class can see exactly what
 is missing — then the check names the register and the value that was expected.
 
-## The eight exercises
+## The nine exercises
 
 | # | Exercise | What it teaches |
 |---|---|---|
@@ -42,6 +36,7 @@ is missing — then the check names the register and the value that was expected
 | 6 | Call a subroutine | `CALL` pushes, `RET` pops — and the code after the call proves you came back |
 | 7 | Decide something | `CMP` sets the flags, `JZ` branches: your first `if` |
 | 8 | Say something out loud | `OUT` hands a byte to a port |
+| 9 | Swap two registers | why a swap needs a third register — and why "just copy it" loses a value |
 
 ## For teachers
 
@@ -76,6 +71,22 @@ The suite asserts the three things a teaching pack must be able to promise:
 3. **the checks bite** — subtracting instead of adding, forgetting to `LOAD` back, ending a subroutine
    with `HLT` instead of `RET`, and writing one byte when two were asked for are all caught, each with the
    message a teacher would give
+
+
+## The Weft-8 family
+
+One machine, seven faces. Every one of these runs `weft8.js` from the Loom, byte for byte —
+learn it once and you have learned all seven.
+
+| | what it is |
+|---|---|
+| [the Loom](https://drsamonline.github.io/app-jacquard/) | the machine and its editor — where it all starts |
+| [Weft Puzzles](https://drsamonline.github.io/app-weft-puzzles/) | five puzzles solved in assembly, a robot on a grid |
+| [Clip Loom](https://drsamonline.github.io/app-clip-loom/) | clipboard programs you can read: strip, squeeze, wrap |
+| [Weft-8 on hardware](https://drsamonline.github.io/weft8-hardware/) | the same machine in C, three-way parity with the JS one |
+| [weft8-kit](https://drsamonline.github.io/weft8-kit/) | rules small enough to sign off |
+| **Weft-8 Classroom** (you are here) | eight exercises that teach how a computer works |
+| [Weft-8 beside x86 and ARM](https://drsamonline.github.io/weft8-compare/) | the same four jobs in three machines |
 
 ## Licence
 
