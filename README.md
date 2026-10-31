@@ -2,6 +2,12 @@
 
 # Weft-8 Classroom
 
+<!-- shot:start -->
+
+![Screenshot](docs/shot.png)
+
+<!-- shot:end -->
+
 **Eight exercises that teach how a computer actually works — on a real one.**
 
 [![Live exercises](https://img.shields.io/badge/live-the%20exercises-e8d48b?style=flat-square&labelColor=1c2b24)](https://drsamonline.github.io/weft8-classroom/)
