@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weft-8 Classroom — eight exercises on a real machine</title>
+<meta name="description" content="Eight exercises that teach how a computer works, on the Loom's 8-bit Weft-8. Each starter is incomplete; each answer is checked by the machine.">
+<meta name="theme-color" content="#1c2b24">
+<style>
+  :root{--board:#1c2b24;--chalk:#eef3ea;--chalk-dim:#c2d2c6;--faint:#8ea394;--yellow:#e8d48b;--pink:#e6a8a1;
+        --line:rgba(238,243,234,.16);--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+        --hand:"Bradley Hand","Segoe Print","Comic Sans MS",cursive}
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--chalk);font:15px/1.7 var(--mono);
+    background:radial-gradient(1000px 600px at 30% -10%,#26382f 0%,transparent 60%),
+      repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 2px,transparent 2px 4px),var(--board)}
+  a{color:var(--yellow)}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 20px 48px}
+  .top{display:flex;align-items:center;gap:12px;padding:18px 0;border-bottom:2px solid rgba(238,243,234,.12)}
+  .chalkbox{width:24px;height:24px;border:2px solid var(--chalk-dim);border-radius:3px;position:relative}
+  .chalkbox:after{content:"";position:absolute;left:4px;bottom:4px;width:13px;height:2px;background:var(--yellow)}
+  .brand{font:600 12.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase}
+  .top .r{margin-left:auto;font-size:12px;color:var(--faint);display:flex;gap:12px}
+  .top .r a{text-decoration:none}
+
+  .hero{padding:52px 0 36px;display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+  @media (max-width:880px){.hero{grid-template-columns:1fr;padding:30px 0 22px}}
+  .kick{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);margin:0 0 12px}
+  h1{font:600 clamp(30px,5vw,48px)/1.08 var(--mono);margin:0 0 16px;letter-spacing:-.02em}
+  h1 em{font-style:normal;color:var(--yellow)}
+  .lede{color:var(--chalk-dim);max-width:56ch;margin:0 0 22px}
+  .cta{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 18px;border-radius:6px;text-decoration:none;font-weight:600;
+    background:var(--yellow);color:#1c2b24;border:1px solid var(--yellow)}
+  .btn.gh{background:transparent;color:var(--chalk);border:1px solid var(--line)}
+  .btn.gh:hover{border-color:var(--yellow);color:var(--yellow)}
+
+  .slate{border:1px solid var(--line);border-radius:8px;padding:18px;background:rgba(20,32,27,.55);position:relative}
+  .slate .t{font:600 10px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+  .slate pre{margin:0;font:12px/1.8 var(--mono);color:var(--chalk-dim);white-space:pre-wrap}
+  .slate pre .k{color:var(--yellow);font-weight:600}
+  .slate pre .m{color:var(--pink)}
+  .slate .hand{font:16px/1.5 var(--hand);color:var(--pink);margin-top:12px;transform:rotate(-1.2deg)}
+
+  section{padding:32px 0;border-top:1px solid var(--line)}
+  h2{font:600 clamp(20px,3vw,26px)/1.2 var(--mono);margin:0 0 8px}
+  .sub{color:var(--faint);margin:0 0 22px;max-width:70ch;font-size:13.5px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  @media (max-width:880px){.grid{grid-template-columns:repeat(2,1fr)}}
+  .ex{border:1px solid var(--line);border-radius:6px;padding:11px;background:rgba(20,32,27,.45)}
+  .ex .n{font-size:10px;letter-spacing:.16em;color:var(--yellow)}
+  .ex h3{margin:3px 0 4px;font:600 12px/1.3 var(--mono)}
+  .ex p{margin:0;color:var(--faint);font-size:11.5px}
+  ul.facts{margin:0;padding-left:18px;color:var(--chalk-dim);font-size:13.5px}
+  ul.facts li{margin:8px 0}
+  ul.facts b{color:var(--chalk)}
+  footer{padding:20px 0 40px;color:var(--faint);font-size:11.5px;display:flex;gap:10px;flex-wrap:wrap;
+    border-top:1px solid var(--line);margin-top:8px}
+  code{background:rgba(238,243,234,.08);border:1px solid var(--line);border-radius:4px;padding:1px 4px;font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span class="chalkbox" aria-hidden="true"></span>
+    <span class="brand">Weft-8 Classroom</span>
+    <div class="r"><a href="play/">the exercises</a><span>·</span><a href="https://github.com/drsamonline/weft8-classroom">source</a></div>
+  </div>
+
+  <div class="hero">
+    <div>
+      <p class="kick">eight exercises · a real 8-bit machine · one lesson</p>
+      <h1>How a computer<br>actually <em>works</em>.</h1>
+      <p class="lede">Not a simulation of a lesson about computers — a computer. Sixteen registers, four
+      flags, twenty-seven instructions, and no <code>if</code> statement, so the student builds one. Every
+      exercise starts <b>incomplete</b>: the machine runs, does something, and the class can see exactly
+      what is missing.</p>
+      <div class="cta">
+        <a class="btn" href="play/">Open the exercises</a>
+        <a class="btn gh" href="https://github.com/drsamonline/weft8-classroom/blob/main/TEACHER.md">Teacher's sheet</a>
+      </div>
+    </div>
+    <div class="slate">
+      <div class="t">exercise 6 · call a subroutine</div>
+      <pre>        <span class="k">CALL</span> seven
+        <span class="m">; ... and now? R3 must hold 9</span>
+        <span class="k">HLT</span>
+seven:  <span class="k">LDI</span> 7
+        <span class="k">MOV</span> R4, R0
+        <span class="m">; how do you get back?</span></pre>
+      <div class="hand">if you never come back, R3 stays 0 — and the machine will tell you.</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>The eight</h2>
+    <p class="sub">About 45–60 minutes for a first lesson, and every one of them is checked by the machine,
+    not by the teacher.</p>
+    <div class="grid">
+      <div class="ex"><div class="n">01</div><h3>Put a number somewhere</h3><p>LDI fills the accumulator, MOV moves it</p></div>
+      <div class="ex"><div class="n">02</div><h3>Add two numbers</h3><p>what ADD Ra, Rb really means</p></div>
+      <div class="ex"><div class="n">03</div><h3>Double a number</h3><p>SHL is multiply-by-two</p></div>
+      <div class="ex"><div class="n">04</div><h3>Count to ten</h3><p>a loop needs a counter and a branch</p></div>
+      <div class="ex"><div class="n">05</div><h3>Remember something</h3><p>STORE and LOAD reach RAM</p></div>
+      <div class="ex"><div class="n">06</div><h3>Call a subroutine</h3><p>CALL pushes, RET pops — and the code after proves it</p></div>
+      <div class="ex"><div class="n">07</div><h3>Decide something</h3><p>CMP sets the flags, JZ branches — this is your first if</p></div>
+      <div class="ex"><div class="n">08</div><h3>Say something out loud</h3><p>OUT hands a byte to a port</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What makes it teachable</h2>
+    <ul class="facts">
+      <li><b>The starter is wrong on purpose.</b> Running it is not a failure, it is the question — and the
+      check says which register held the wrong value and what was expected.</li>
+      <li><b>No partial credit.</b> The machine has no partial answers, so the tick means the program is
+      right, not that it looks right.</li>
+      <li><b>Offline, one file, no accounts.</b> A classroom with no internet and a decade-old laptop can
+      run the whole lesson.</li>
+      <li><b>Built on the Loom.</b> The machine is <code>weft8.js</code> from
+      <a href="https://github.com/drsamonline/app-jacquard">app-jacquard</a>, byte for byte — so a student
+      who finishes these eight can open Jacquard or the puzzle set and it is the same computer.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Built on the Loom — <a href="https://github.com/drsamonline/app-jacquard">app-jacquard</a>:
+      <code>weft8.js</code> byte for byte</span>
+    <span>·</span><span>© 2026 Dr Sohil Momin</span><span>·</span><span>PolyForm Noncommercial 1.0.0</span>
+    <span>·</span><span>free to use, print and teach with</span>
+  </footer>
+</div>
+</body>
+</html>

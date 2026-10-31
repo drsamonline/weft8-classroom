@@ -1,0 +1,15 @@
+{
+  "name": "weft8-classroom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Weft-8 Classroom \u2014 eight exercises that teach how a computer works, on the Loom's 8-bit machine.",
+  "scripts": {
+    "test": "node test-node.js && node tests/page-smoke.js",
+    "test:engine": "node test-node.js",
+    "test:page": "node tests/page-smoke.js"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  },
+  "license": "SEE LICENSE IN LICENSE"
+}

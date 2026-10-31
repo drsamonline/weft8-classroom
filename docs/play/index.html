@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weft-8 Classroom — eight exercises on a real machine</title>
+<meta name="description" content="Eight exercises that teach how a computer works, on the Loom's 8-bit Weft-8. Each starter is incomplete, each check is run by the machine.">
+<meta name="theme-color" content="#1c2b24">
+<style>
+  :root{--board:#1c2b24;--board2:#20302a;--chalk:#eef3ea;--chalk-dim:#b9c9bd;--chalk-faint:#8ea394;
+        --yellow:#e8d48b;--pink:#e6a8a1;--line:rgba(238,243,234,.18);--good:#9fe0a8;--bad:#f0a9a1;
+        --hand:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;
+        --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--chalk);font:14.5px/1.65 var(--mono);
+    background:radial-gradient(1000px 600px at 30% -10%,#26382f 0%,transparent 60%),
+      repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 2px,transparent 2px 4px),var(--board)}
+  a{color:var(--yellow)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 18px 40px}
+  header{display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:2px solid rgba(238,243,234,.12);margin-bottom:16px}
+  .chalkbox{width:26px;height:26px;border:2px solid var(--chalk-dim);border-radius:3px;position:relative}
+  .chalkbox:after{content:"";position:absolute;left:4px;bottom:4px;width:14px;height:2px;background:var(--yellow)}
+  h1{margin:0;font:600 14px/1.1 var(--mono);letter-spacing:.16em;text-transform:uppercase}
+  .sub{color:var(--chalk-faint);font-size:11.5px}
+  header .r{margin-left:auto;font-size:11.5px;color:var(--chalk-faint);display:flex;gap:10px}
+  header .r a{text-decoration:none}
+
+  .cols{display:grid;grid-template-columns:280px 1fr 1fr;gap:14px;align-items:start}
+  @media (max-width:1050px){.cols{grid-template-columns:1fr}}
+  .panel{border:1px solid var(--line);border-radius:8px;background:rgba(20,32,27,.55)}
+  .panel .h{padding:9px 12px;border-bottom:1px solid var(--line);font:600 10px/1 var(--mono);
+    letter-spacing:.2em;text-transform:uppercase;color:var(--chalk-faint)}
+  .panel .b{padding:12px}
+
+  .exercises{list-style:none;margin:0;padding:0}
+  .exercises li{margin:0 0 5px}
+  .exercises button{width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:6px;
+    color:var(--chalk);padding:8px 10px;font:500 12.5px/1.35 var(--mono);cursor:pointer;display:flex;gap:8px}
+  .exercises button:hover{background:rgba(238,243,234,.06)}
+  .exercises button[aria-current="true"]{border-color:var(--yellow);background:rgba(232,212,139,.10)}
+  .exercises .tick{margin-left:auto;color:var(--good)}
+  .brief{color:var(--chalk-dim);font-size:12.5px;margin:10px 0 0}
+  .hint{color:var(--yellow);font-size:12px;margin:8px 0 0;border-left:2px solid rgba(232,212,139,.4);padding-left:9px}
+
+  textarea{width:100%;height:260px;background:rgba(12,22,18,.75);color:var(--chalk);border:1px solid var(--line);
+    border-radius:6px;padding:11px;font:12.6px/1.65 var(--mono);white-space:pre;overflow-x:auto;tab-size:8}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+  button.act{background:var(--yellow);color:#1c2b24;border:1px solid var(--yellow);border-radius:6px;padding:10px 14px;
+    font:600 12.5px/1 var(--mono);cursor:pointer}
+  button.act:hover{filter:brightness(1.06)}
+  button.gh{background:transparent;color:var(--chalk-dim);border:1px solid var(--line);border-radius:6px;
+    padding:10px 12px;font:500 12.5px/1 var(--mono);cursor:pointer}
+  button.gh:hover{border-color:var(--yellow);color:var(--yellow)}
+
+  .result{margin-top:10px;padding:11px 12px;border-radius:6px;border:1px solid var(--line);
+    background:rgba(12,22,18,.7);font-size:12.5px;color:var(--chalk-dim);min-height:46px;white-space:pre-wrap}
+  .result.good{border-color:var(--good);color:var(--good)}
+  .result.bad{border-color:var(--bad);color:#f6c3bd}
+  .regs{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-top:10px}
+  .reg{border:1px solid var(--line);border-radius:4px;padding:4px;text-align:center;font-size:11px;color:var(--chalk-faint)}
+  .reg b{display:block;color:var(--chalk);font-size:11.5px}
+  .reg.hit{border-color:var(--good);color:var(--good)}
+  footer{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);color:var(--chalk-faint);
+    font-size:11.5px;display:flex;gap:10px;flex-wrap:wrap}
+  code{background:rgba(238,243,234,.08);border:1px solid var(--line);border-radius:4px;padding:1px 4px;font-size:11.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="chalkbox" aria-hidden="true"></span>
+    <div>
+      <h1>Weft-8 Classroom</h1>
+      <div class="sub">eight exercises · one real machine · nothing hidden</div>
+    </div>
+    <div class="r"><a href="../">about</a><span>·</span><a href="https://github.com/drsamonline/app-jacquard">the Loom</a></div>
+  </header>
+
+  <div class="cols">
+    <section class="panel">
+      <div class="h">exercises</div>
+      <div class="b">
+        <ul class="exercises" id="exercises"></ul>
+        <p class="brief" id="brief">—</p>
+        <p class="hint" id="hint"></p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="h">your program</div>
+      <div class="b">
+        <textarea id="src" spellcheck="false" wrap="off" aria-label="Your Weft-8 program"></textarea>
+        <div class="row">
+          <button class="act" id="check">Check my answer</button>
+          <button class="gh" id="run">Just run it</button>
+          <button class="gh" id="reset">Back to the starter</button>
+        </div>
+        <div class="result" id="result">Pick an exercise and write a program.</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="h">the machine, after it ran</div>
+      <div class="b">
+        <div class="regs" id="regs"></div>
+        <p class="brief" id="machine" style="margin-top:10px">—</p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <span>Built on the Loom — <a href="https://github.com/drsamonline/app-jacquard">app-jacquard</a>:
+      <code>weft8.js</code> byte for byte</span>
+    <span>·</span><span>© 2026 Dr Sohil Momin</span><span>·</span><span>PolyForm Noncommercial 1.0.0</span>
+    <span>·</span><span>for classrooms: free to use, print, and teach with</span>
+  </footer>
+</div>
+
+<script src="web-kit.js"></script>
+<script src="weft8.js"></script>
+<script src="classroom.js"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var store = (window.Loom && Loom.storage && Loom.storage.namespace) ? Loom.storage.namespace("weftclass") : {
+    get: function (k, d) { try { var v = localStorage.getItem("weftclass:" + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem("weftclass:" + k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+  };
+  var current = Classroom.EXERCISES[0];
+  var done = store.get("done", {}) || {};
+  var drafts = store.get("drafts", {}) || {};
+
+  function renderList() {
+    var ul = $("exercises");
+    ul.innerHTML = "";
+    Classroom.EXERCISES.forEach(function (ex) {
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.setAttribute("aria-current", ex.id === current.id ? "true" : "false");
+      b.innerHTML = "<span>" + ex.title + "</span>" + (done[ex.id] ? '<span class="tick">✓</span>' : "");
+      b.onclick = function () { pick(ex.id); };
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+  }
+
+  function pick(id) {
+    current = Classroom.exerciseById(id);
+    renderList();
+    $("brief").textContent = current.brief;
+    $("hint").textContent = "hint: " + current.hint;
+    $("src").value = drafts[id] !== undefined ? drafts[id] : current.starter;
+    $("result").className = "result";
+    $("result").textContent = done[id] ? "You have done this one. Run it again if you like." : "Write the missing instructions, then Check.";
+    renderMachine(null);
+  }
+
+  function renderMachine(r) {
+    var box = $("regs");
+    box.innerHTML = "";
+    var hit = r ? Object.keys(current.check.reg || {}).map(String) : [];
+    for (var i = 0; i < 16; i++) {
+      var d = document.createElement("div");
+      d.className = "reg" + (hit.indexOf(String(i)) >= 0 ? " hit" : "");
+      d.innerHTML = "<b>R" + i + "</b>" + (r ? r.vm.r[i] : 0);
+      box.appendChild(d);
+    }
+    if (!r) { $("machine").textContent = "—"; return; }
+    var f = r.vm.flags;
+    $("machine").innerHTML = "steps: <b>" + r.steps + "</b> · " +
+      ["Z", "C", "N", "V"].map(function (k) { return (f[k] ? "<b>" : "") + k + (f[k] ? "</b>" : ""); }).join(" · ") +
+      (r.out.length ? " · wrote " + r.out.join(", ") + " to a port" : "");
+  }
+
+  $("check").onclick = function () {
+    drafts[current.id] = $("src").value;
+    store.set("drafts", drafts);
+    var c = Classroom.check(current, $("src").value);
+    renderMachine(c.result && c.result.vm ? c.result : null);
+    if (c.passed) {
+      $("result").className = "result good";
+      $("result").textContent = "Correct. " + (c.result.steps) + " steps, and the machine agrees.";
+      done[current.id] = true;
+      store.set("done", done);
+      renderList();
+    } else {
+      $("result").className = "result bad";
+      $("result").textContent = "Not yet:\n" + c.failures.join("\n");
+    }
+  };
+
+  $("run").onclick = function () {
+    var r = Classroom.run($("src").value);
+    if (r.errors.length) {
+      $("result").className = "result bad";
+      $("result").textContent = r.errors.map(function (e) {
+        return (e.line ? "line " + e.line + ": " : "") + e.message;
+      }).join("\n");
+      return;
+    }
+    renderMachine(r);
+    $("result").className = "result";
+    $("result").textContent = "Ran. " + r.steps + " steps" + (r.error ? " — " + r.error : "") + ".";
+  };
+
+  $("reset").onclick = function () {
+    $("src").value = current.starter;
+    delete drafts[current.id];
+    store.set("drafts", drafts);
+    $("result").className = "result";
+    $("result").textContent = "Back to the starter — the missing part is yours to write.";
+  };
+
+  renderList();
+  pick(Classroom.EXERCISES[0].id);
+})();
+</script>
+</body>
+</html>
